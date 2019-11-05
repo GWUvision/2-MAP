@@ -34,8 +34,6 @@ from umap.spectral import spectral_layout
 
 import locale
 
-import utils
-
 locale.setlocale(locale.LC_NUMERIC, "C")
 
 INT32_MIN = np.iinfo(np.int32).min + 1
@@ -2450,9 +2448,6 @@ class UMAP(BaseEstimator):
     
     def get_loss(self):
         return cal_loss(self.embedding_,self.graph_,self._a,self._b)
-    
-    def get_cross_KL(self):
-        return utils.compute_cross_KL(self.graph_1.toarray(),self.embedding_1,self.graph_2.toarray(),self.embedding_2,self._a,self._b)
     
     def get_semi_loss(self):
         return compute_yoke_loss_semi(self.embedding_1,self.embedding_2,self.graph_1.toarray(),self.graph_2.toarray(),self._a,self._b)
