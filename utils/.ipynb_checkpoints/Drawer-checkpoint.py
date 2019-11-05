@@ -53,8 +53,6 @@ def draw(emb1,emb2,label,name='',title1='',title2='',path='./',savename='compari
     
     axe2=plt.subplot(1,2,2)
     axe2.set_title(title2)
-    print(emb1.shape)
-    print(size)
     x_max = np.max([np.max(emb1[:,0]), np.max(emb2[:, 0])])+2
     y_max = np.max([np.max(emb1[:,1]), np.max(emb2[:, 1])])+2
     x_min = np.min([np.min(emb1[:,0]), np.min(emb2[:, 0])])-2
@@ -109,9 +107,6 @@ def draw_single(emb,label,name,path='./',axis_size=35,savename=''):
     plt.title(name)
     
     axe1=plt.subplot(1,1,1)
-    
-    print(emb.shape)
-    print(size)
     
     for k in range(0,size-1):
         axe1.scatter(emb[k, 0], emb[k, 1],c=colorslist3[k],marker=markerslist3[k],alpha=0.5)
