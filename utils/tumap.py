@@ -111,7 +111,6 @@ def compute_yoke_loss_semi(embedding1,embedding2,V1,V2,a=1.577,b=0.895):
 def cal_loss(embedding,graph,a=1.577,b=0.895):
     
     p_d = compute_pairwise_distances(embedding)
-    print(np.where(np.isinf(p_d)))
     W = 1/(1+a*np.power(p_d,2*b))
     V = graph.toarray()
 
@@ -122,7 +121,6 @@ def cal_loss(embedding,graph,a=1.577,b=0.895):
     R = np.nan_to_num(R)
     np.fill_diagonal(R, 0)
     R_Loss = R.sum()
-    print(R_Loss)
 
     A = V*(np.log(V)-np.log(W))
     #pdb.set_trace()
@@ -131,7 +129,6 @@ def cal_loss(embedding,graph,a=1.577,b=0.895):
     A = np.nan_to_num(A)
     np.fill_diagonal(A, 0)
     A_Loss = A.sum()
-    print(A_Loss)
     
 
     Loss = A_Loss+R_Loss
@@ -704,7 +701,6 @@ def make_epochs_per_sample(weights, n_epochs):
     """
     result = -1.0 * np.ones(weights.shape[0], dtype=np.float64)
     n_samples = n_epochs * (weights / weights.max())
-    print(n_samples.shape)
     result[n_samples > 0] = float(n_epochs) / n_samples[n_samples > 0]
     return result
 
@@ -944,7 +940,6 @@ def optimize_yoke(
     for n in range(n_epochs):
         for i in range(epochs_per_sample1.shape[0]):
             if epoch_of_next_sample1[i] <= n:
-                #print(n,' 0')
                 j = edge[i][0]
                 k = edge[i][1]
                 
@@ -954,7 +949,6 @@ def optimize_yoke(
                 current_a = head_embedding2[j]
                 other_a = tail_embedding2[k]
                 
-                #print(n,' 1')
                 dist_squared = rdist(current, other)
 
                 if dist_squared > 0.0:
@@ -971,7 +965,6 @@ def optimize_yoke(
                         other[d] += -grad_d * alpha
                         other[d] -= 2*lam*(other[d]-other_a[d])*alpha
             
-                #print(n,' 2')
                 epoch_of_next_sample1[i] += epochs_per_sample1[i]
                 
                 if not no_repul:
@@ -980,7 +973,6 @@ def optimize_yoke(
                         / epochs_per_negative_sample1[i]
                     )
 
-                    #print(n,' 3')
 
                     for p in range(n_neg_samples1):
                         k = tau_rand_int(rng_state) % n_vertices
@@ -1116,7 +1108,7 @@ def optimize_yoke(
         if verbose and n % int(n_epochs / 10) == 0:
             print("\tcompleted ", n, " / ", n_epochs, "epochs")
     
-        #print(n,'is done')
+
     return head_embedding1,head_embedding2
 
 
@@ -1140,8 +1132,6 @@ def optimize_yoke_fixed(
     lam=0,
     no_repul=False
 ):
-    print(head_embedding1)
-    print(head_embedding2)
     dim = head_embedding1.shape[1]
     move_other = head_embedding1.shape[0] == tail_embedding1.shape[0]
     alpha = initial_alpha
@@ -1153,7 +1143,6 @@ def optimize_yoke_fixed(
     for n in range(n_epochs):
         for i in range(epochs_per_sample.shape[0]):
             if epoch_of_next_sample[i] <= n:
-                #print(n,' 0')
                 j = edge[i][0]
                 k = edge[i][1]
                 
@@ -1163,7 +1152,6 @@ def optimize_yoke_fixed(
                 current_a = head_embedding2[j]
                 other_a = tail_embedding2[k]
                 
-                #print(n,' 1')
                 dist_squared = rdist(current, other)
 
                 if dist_squared > 0.0:
@@ -1180,7 +1168,6 @@ def optimize_yoke_fixed(
                         other[d] += -grad_d * alpha
                         other[d] -= 2*lam*(other[d]-other_a[d])*alpha
             
-                #print(n,' 2')
                 if not no_repul:
                     epoch_of_next_sample[i] += epochs_per_sample[i]
 
@@ -1189,7 +1176,6 @@ def optimize_yoke_fixed(
                         / epochs_per_negative_sample[i]
                     )
 
-                    #print(n,' 3')
 
                     for p in range(n_neg_samples):
                         k = tau_rand_int(rng_state) % n_vertices
@@ -1512,13 +1498,11 @@ def yoke_set_embedding(
     head1 = graph1.row
     tail1 = graph1.col
     edge1 = np.stack((head1,tail1),axis=1)
-    print(embedding1.shape)
     
     if not fixed:
         head2 = graph2.row
         tail2 = graph2.col
         edge2 = np.stack((head2,tail2),axis=1)
-        print(embedding2.shape)
     
     merge_ht_dir = {}
     

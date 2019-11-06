@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import importlib
 import datetime
 
-def draw(emb1,emb2,label,name='',title1='',title2='',path='./',savename='comparison'):
+def draw(emb1,emb2,label,name='',title1='',title2='',savepath='./',savename='comparison'):
     """ Draw a comparison image for two 2-d data
     
     Parameters
@@ -66,10 +66,10 @@ def draw(emb1,emb2,label,name='',title1='',title2='',path='./',savename='compari
         axe2.set_xlim(axis_min, axis_max)
         axe2.set_ylim(axis_min, axis_max)
         
-    plt.savefig(path+'/'+savename+'.jpg',dpi=300)
+    plt.savefig(savepath+'/'+savename+'.png',dpi=300)
     #plt.show()
 
-def draw_single(emb,label,name,path='./',axis_size=35,savename=''):
+def draw_single(emb,label,name,savepath='./',axis_size=35,savename=''):
     """ Draw a image for a 2-d data
     
     Parameters
@@ -112,7 +112,7 @@ def draw_single(emb,label,name,path='./',axis_size=35,savename=''):
         axe1.set_xlim(-axis_size, axis_size)
         axe1.set_ylim(-axis_size, axis_size)
         
-    plt.savefig(path+'/'+savename+'.jpg',dpi=300)
+    plt.savefig(path+'/'+savename+'.png',dpi=300)
 
 def draw_curve(oriloss,Uloss,name='curve',savepath='./'):
     """ Draw accepted range and loss curve with different penalty scale.

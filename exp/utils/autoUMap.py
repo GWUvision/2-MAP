@@ -279,8 +279,8 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
     pickle.dump(result1, open(savepath+'/0.pkl', "wb" ) )
     pickle.dump(result2, open(savepath+'/1.pkl', "wb" ) )
     if if_draw:
-        Drawer.draw_single(result1,label,'',path=savepath,savename='0')
-        Drawer.draw_single(result2,label,'',path=savepath,savename='1')
+        Drawer.draw_single(result1,label,'',savepath=savepath,savename='0')
+        Drawer.draw_single(result2,label,'',savepath=savepath,savename='1')
         
     fixmap=result2
     for index in range(2,len(datalist)):
@@ -307,6 +307,6 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
         pickle.dump(result1, open(savepath+'/'+str(index)+'.pkl', "wb" ) )
         fixmap=result1    
         if if_draw:
-            Drawer.draw_single(result1,label,'',path=savepath,savename=str(index))
+            Drawer.draw_single(result1,label,'',savepath=savepath,savename=str(index))
         
     return result1,result2,ori1,ori2

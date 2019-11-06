@@ -279,33 +279,27 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
     pickle.dump(result1, open(savepath+'/0.pkl', "wb" ) )
     pickle.dump(result2, open(savepath+'/1.pkl', "wb" ) )
     if if_draw:
-        Drawer.draw_single(result1,label,'',path=savepath,savename='0')
-        Drawer.draw_single(result2,label,'',path=savepath,savename='1')
+        Drawer.draw_single(result1,label,'',savepath=savepath,savename='0')
+        Drawer.draw_single(result2,label,'',savepath=savepath,savename='1')
         
     fixmap=result2
     for index in range(2,len(datalist)):
         data = datalist[index]
         for i in range(0,times):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=0)
-            embed1,embed2 = umaper.yoke_transform(data1,fixmap,fixed=True)
-            loss1,loss2 = umaper.get_semi_loss()
+            embed1,_ = umaper.yoke_transform(data1,fixmap,fixed=True)
+            loss1,_ = umaper.get_semi_loss()
             oriloss1.append(loss1)
-            oriloss2.append(loss2)
             mean1 = np.asarray(oriloss1).mean()
             std1 = np.asarray(oriloss1).std() 
-            max1 = np.asarray(oriloss1).max() 
-            mean2 = np.asarray(oriloss2).mean()
-            std2 = np.asarray(oriloss2).std()
-            max2 = np.asarray(oriloss2).max() 
 
             result1 = None
-            result2 = None
 
         for i in range(1,10):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=10**-i)
-            embed1, embed2 = umaper.yoke_transform(data1,fixmap,fixed=True)
+            embed1,_= umaper.yoke_transform(data1,fixmap,fixed=True)
 
-            loss1,loss2 = umaper.get_semi_loss()
+            loss1,_ = umaper.get_semi_loss()
             condition1 = (loss1<=mean1+std1)
             if condition1:
                 result1 = embed1
@@ -313,6 +307,6 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
         pickle.dump(result1, open(savepath+'/'+str(index)+'.pkl', "wb" ) )
         fixmap=result1    
         if if_draw:
-            Drawer.draw_single(result1,label,'',path=savepath,savename=str(index))
+            Drawer.draw_single(result1,label,'',savepath=savepath,savename=str(index))
         
     return result1,result2,ori1,ori2
