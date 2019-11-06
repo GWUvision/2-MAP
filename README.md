@@ -37,6 +37,7 @@ Package we need:
   - scikit-learn
   - scipy
   - umap-learn
+  - jupyterlab(For experiment)
 
 # Code Structure
 * data folder: saving data which be used in our experiment
@@ -45,7 +46,7 @@ Package we need:
 
 # Usage
 
-For re-run our experiment, run .ipynb scipt in exp folder.
+For re-run our experiment, run .ipynb scipt on jupyter notebook(or jupyter lab) in exp folder.
 
 - MNIST: It is umap experiment on MNIST dataset, for figure 1 & 2 in paper.
 - fake_data: It is umap experiment on a fake dataset, a straight line in 100-dimension with four Gaussian disturbution
