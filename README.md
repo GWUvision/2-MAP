@@ -25,14 +25,14 @@ Let me show some examples:
 Firstly, Let’s play with some simple dataset. MNIST digit dataset is a perfect example. Assume we want to figure out how good of a 10-dimensional PCA result. We can just run 2-map on 10-dimensional PCA result and 784-dimensional raw data. 
 
 ![alt text](img/MNIST_raw.jpg)
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/MNIST_pca.jpg?token=AGEKS3BBOXQGSYXQKRWDB7S55Z6XA)
+![alt text](img/MNIST_pca.jpg)
 
 With 2-MAP, it is easily to see the corresponding intra-cluster and inter-cluster relationship between them, which is helpful for evaluating the PCA result.
 
 ### CAR dataset
 Yes! 2-map is very gifted at image embedding task. For shown what 2-map can do, we try to compare global pooling layer output with fully connect layer output of a Resnet-50[3] in image embedding task (trained by NPair loss[4] on CAR196[5] dataset). Here is the result on training set(up) and testing set(bottom). 
 
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/FC_GP.png?token=AGEKS3AP3O3MG7PNR4K7XMK55Z7AS)
+![alt text](img/FC_GP.png)
 
 Wait… The training set is aligned and easy to compare, but the testing data seems doesn’t aligned at all.
 Actually, it is how 2-map work. If two datasets are very different, 2-map doesn’t align them. Let me explain in next experiment.
@@ -40,23 +40,23 @@ Actually, it is how 2-map work. If two datasets are very different, 2-map doesn�
 ### Fake dataset
 Assume we have two dataset in 100 dimensions, one is composed by four Gaussian distributions, the other is a straight line in 100 dimensions. OK, those two datasets seem very different. So, what will happen if we run 2-map on them? (with different penalty degree)
 
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/fake_data.png?token=AGEKS3CXLXZIJKKAGO3U3VS55Z7BW)
+![alt text](img/fake_data.png)
 
 As we can see, if we force them align together, they will lose their own features. So, we don’t align them if they are different. 
 
 ### Word embedding task
 Same to image embedding task, 2-map also good at word embedding task. In this experiment, we compare ViCo[6] embedding feature with GloVe[7] embedding feature.
 
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/word.png?token=AGEKS3CHHOY7TAO5LKY2MMK55Z7CY)
+![alt text](img/word.png)
 
 After aligning, it is easily to focus one specific area to see words in this area.
 
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/zoomin.jpg?token=AGEKS3BEPEL7JSXIBXMVBQK55Z7EM)
+![alt text](img/zoomin.jpg)
 
 ### Time sequence data
 Well, 2-map also can deal with time sequence data. In this experiment, we will use 2-map to visualize image embedding training process. We training Resnet-50[3] on Car196[5] dataset by NPair loss[4]. And visualize the training process by record training vectors and testing vectors after each epochs. 
 
-![alt text](https://raw.githubusercontent.com/GWUvision/2-MAP/master/img/time_sequnece.png?token=AGEKS3GHZWRYPXX5BNYHE7C55Z7FE)
+![alt text](img/time_sequnece.png)
 
 ## Install Dependencies
 1. For anaconda:
