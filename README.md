@@ -24,8 +24,7 @@ Let me show some examples:
 ### MNIST dataset
 Firstly, Let’s play with some simple dataset. MNIST digit dataset is a perfect example. Assume we want to figure out how good of a 10-dimensional PCA result. We can just run 2-map on 10-dimensional PCA result and 784-dimensional raw data. 
 
-![alt text](img/raw_new.jpg)
-![alt text](img/pca_new.jpg)
+![alt text](img/MNIST.jpg)
 
 With 2-MAP, it is easily to see the corresponding intra-cluster and inter-cluster relationship between them, which is helpful for evaluating the PCA result.
 
