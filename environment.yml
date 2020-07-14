@@ -8,8 +8,8 @@ dependencies:
   - numba
   - numpy
   - python=3.7.3
-  - scikit-learn
+  - scikit-learn = 0.22
   - scipy
-  - umap-learn
+  - umap-learn = 0.3.9
 prefix:
 
