@@ -263,8 +263,8 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
     std2 = np.asarray(oriloss2).std()
     max2 = np.asarray(oriloss2).max() 
     
-    result1 = None
-    result2 = None
+    result1 = embed1
+    result2 = embed2
     for i in range(1,10):
         umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,lam=10**-i)
         embed1, embed2 = umaper.yoke_transform(data1,data2,fixed=False)
@@ -287,31 +287,22 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
         data = datalist[index]
         for i in range(0,times):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=0)
-            embed1,embed2 = umaper.yoke_transform(data1,fixmap,fixed=True)
-            loss1,loss2 = umaper.get_semi_loss()
+            embed1,_ = umaper.yoke_transform(data1,fixmap,fixed=True)
+            loss1,_ = umaper.get_semi_loss()
             oriloss1.append(loss1)
-            oriloss2.append(loss2)
-        mean1 = np.asarray(oriloss1).mean()
-        std1 = np.asarray(oriloss1).std() 
-        max1 = np.asarray(oriloss1).max() 
-        mean2 = np.asarray(oriloss2).mean()
-        std2 = np.asarray(oriloss2).std()
-        max2 = np.asarray(oriloss2).max() 
+            mean1 = np.asarray(oriloss1).mean()
+            std1 = np.asarray(oriloss1).std() 
 
-        result1 = embed1
-        result2 = embed2
+            result1 = None
 
         for i in range(1,10):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=10**-i)
-            embed1, embed2 = umaper.yoke_transform(data1,fixmap,fixed=True)
+            embed1,_= umaper.yoke_transform(data1,fixmap,fixed=True)
 
-            loss1,loss2 = umaper.get_semi_loss()
+            loss1,_ = umaper.get_semi_loss()
             condition1 = (loss1<=mean1+std1)
             if condition1:
-                res1 = embed1
-                res2 = embed2
-                result1 = res1
-                result2 = res2
+                result1 = embed1
                 break
         pickle.dump(result1, open(savepath+'/'+str(index)+'.pkl', "wb" ) )
         fixmap=result1    
