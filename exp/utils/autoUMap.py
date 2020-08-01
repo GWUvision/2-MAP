@@ -119,8 +119,8 @@ def yoke_TUMAP(data1,data2,label,metric='euclidean',init_1="spectral",init_2="sp
     std2 = np.asarray(oriloss2).std()
     max2 = np.asarray(oriloss2).max() 
     
-    result1 = None
-    result2 = None
+    result1 = embed1
+    result2 = embed2
     Uloss1=[]
     Uloss2=[]
     for i in range(1,10):
@@ -263,8 +263,8 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
     std2 = np.asarray(oriloss2).std()
     max2 = np.asarray(oriloss2).max() 
     
-    result1 = None
-    result2 = None
+    result1 = embed1
+    result2 = embed2
     for i in range(1,10):
         umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,lam=10**-i)
         embed1, embed2 = umaper.yoke_transform(data1,data2,fixed=False)
