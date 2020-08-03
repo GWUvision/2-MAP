@@ -284,7 +284,7 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
         
     fixmap=result2
     for index in range(2,len(datalist)):
-        data = datalist[index]
+        data1 = datalist[index]
         for i in range(0,times):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=0)
             embed1,_ = umaper.yoke_transform(data1,fixmap,fixed=True)
@@ -293,7 +293,7 @@ def ThruMap(datalist,label,metric='euclidean',n_epoches=500,times=5,savepath='./
             mean1 = np.asarray(oriloss1).mean()
             std1 = np.asarray(oriloss1).std() 
 
-            result1 = None
+        result1 = embed1
 
         for i in range(1,10):
             umaper = tumap.UMAP(metric=metric,n_epochs=n_epoches,init_1=fixmap,init_2=fixmap,lam=10**-i)
